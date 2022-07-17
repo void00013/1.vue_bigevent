@@ -55,6 +55,7 @@ export default {
         localStorage.setItem('token', data.token)
         this.$router.push('/index')
       } catch (error) {
+        layer.msg("登录失败", { time: 1000 })
         console.log(error)
       }
     },
@@ -67,6 +68,7 @@ export default {
         layer.msg("注册成功，请登录", { time: 1000 })
         this.isLogin = true
       } catch (error) {
+        layer.msg("注册失败", { time: 1000 })
         console.log(error)
       }
     }

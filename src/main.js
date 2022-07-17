@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Layui from '@layui/layui-vue'
 import '@layui/layui-vue/lib/index.css'
+import './assets/fonts/iconfont.css'
 
 const app = createApp(App)
 app.use(router)

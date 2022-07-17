@@ -1,13 +1,14 @@
 <template>
   <router-view></router-view>
-  <!-- <Login></Login> -->
 </template>
 
 <script>
 import Login from './views/login/login.vue'
+import Alert from './components/alert.vue'
 export default {
   components: {
-    Login
+    Login,
+    Alert
   }
 }
 </script>
