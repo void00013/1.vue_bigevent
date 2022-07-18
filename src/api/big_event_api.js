@@ -22,9 +22,13 @@ function getUserInfo() {
   return request.get('/my/userinfo')
 }
 // 更新用户基本信息
-function updateUserInfo() {}
+function updateUserInfo(id, nickname, email) {
+  return request.post('/my/userinfo', qs.stringify({id, nickname, email}))
+}
 // 修改密码
-function updatepwd() {}
+function updatePwd(oldPwd, newPwd) {
+  return request.post('/my/updatepwd', qs.stringify({oldPwd, newPwd}))
+}
 // 修改头像
 function updateAvatar() {}
 
@@ -58,7 +62,7 @@ export {
   login,
   getUserInfo,
   updateUserInfo,
-  updatepwd,
+  updatePwd,
   updateAvatar,
   getArticleTypeList,
   addArticleType,

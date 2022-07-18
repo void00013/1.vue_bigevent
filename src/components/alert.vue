@@ -54,7 +54,7 @@ export default {
   methods: {
     hide(callback) {
       this.$emit('close')
-      callback ? callback() : null
+      callback()
     }
   },
 }
@@ -91,12 +91,14 @@ export default {
     }
     .content {
       height: 80px;
+      padding: 10px;
     }
     .btn {
       float: right;
       height: 50px;
       line-height: 50px;
       button {
+        cursor: pointer;
         margin: 0 10px;
         padding: 5px 10px;
         border: 1px solid rgba(153, 153, 153, 0.5);

@@ -5,7 +5,6 @@
         <img src="../../assets/images/logo.png" alt="">
         <div class="controlBox">
           <lay-dropdown>
-            <!-- <lay-button type="primary">下拉菜单</lay-button> -->
             <a href="javascript:;" class="headerLink">
               <img :src="user_pic" alt="" class="headerImg" v-if="user_pic">
               <span class="text-avatar" v-else>{{firstName}}</span>
@@ -25,7 +24,13 @@
       <lay-layout>
         <!-- 侧边栏 -->
         <lay-side>
-          <lay-menu :selectedKey="selectedKey" @changeSelectedKey="changeSelectedKey" @changeOpenKeys="changeOpenKeys" v-model:openKeys="openKeys2" :tree="true">
+          <lay-menu
+            :selectedKey="selectedKey"
+            @changeSelectedKey="changeSelectedKey"
+            @changeOpenKeys="changeOpenKeys"
+            v-model:openKeys="openKeys2"
+            :tree="true"
+          >
             <div class="userinfo">
               <img :src="user_pic" alt="" class="userImg" v-if="user_pic">
               <span class="text-avatar" v-else>{{firstName}}</span>
@@ -58,9 +63,21 @@
                 <span class="iconfont icon-user"></span>
                 个人中心
               </template>
-              <lay-menu-item id="13"><lay-icon type="layui-icon-app"></lay-icon>基本资料</lay-menu-item>
-              <lay-menu-item id="14"><lay-icon type="layui-icon-app"></lay-icon>更换头像</lay-menu-item>
-              <lay-menu-item id="15"><lay-icon type="layui-icon-app"></lay-icon>重置密码</lay-menu-item>
+              <router-link to="/index/userinfo">
+                <lay-menu-item id="13">
+                  <lay-icon type="layui-icon-app"></lay-icon>基本资料
+                </lay-menu-item>
+              </router-link>
+              <router-link to="/index/updateavatar">
+                <lay-menu-item id="14">
+                  <lay-icon type="layui-icon-app"></lay-icon>更换头像
+                </lay-menu-item>
+              </router-link>
+              <router-link to="/index/resetpwd">
+                <lay-menu-item id="15">
+                  <lay-icon type="layui-icon-app"></lay-icon>重置密码
+                </lay-menu-item>
+              </router-link>
             </lay-sub-menu>
           </lay-menu>
         </lay-side>
@@ -116,26 +133,29 @@ export default {
           callback: this.logout
         },
         {
-          text: '退出',
+          text: '取消',
           color: 'black',
           bgc: 'white'
         }
       ]
     }
   },
-  async created() {
-    try {
-      const { data:res } = await getUserInfo()
-      // console.log(res)
-      if(res.status !== 0) return
-      this.name = res.data.nickname || res.data.username
-      this.firstName = this.name[0].toUpperCase()
-      this.user_pic = res.data.user_pic
-    } catch (error) {
-      console.log(error)
-    }
+  created() {
+    this.initUserInfo()
   },
   methods: {
+    async initUserInfo() {
+      try {
+        const { data:res } = await getUserInfo()
+        // console.log(res)
+        if(res.status !== 0) return
+        this.name = res.data.nickname === '' ? res.data.username : res.data.nickname
+        this.firstName = this.name[0].toUpperCase()
+        this.user_pic = res.data.user_pic
+      } catch (error) {
+        console.log(error)
+      }
+    },
     open() {this.show = true},
     close() {this.show = false},
     logout() {
